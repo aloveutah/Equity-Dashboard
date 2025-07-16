@@ -1,3 +1,4 @@
+
 const assignedOptions = [
     "Amy Love", "Nicole Thomas", "Daniela Torres", "Wanda Heeley", 
     "All (A/N/D/W)", "Shareworks", "Legal", "Altshare", "Deloitte", "Payroll", "Other"
@@ -62,8 +63,12 @@ const addTaskRow = () => {
     statusSelect.addEventListener('change', () => {
         const status = statusSelect.value;
         if (status === "Complete") {
-            document.getElementById("completed-rows").appendChild(newRow);  // Move to completed section
+            const completedRows = document.getElementById("completed-rows");
+            // Move to the completed section
+            newRow.querySelector('.remove-task-button').innerText = 'Remove'; // Ensure the button text is set to Remove
+            completedRows.appendChild(newRow);  // Move to completed section
             statusSelect.disabled = true;  // Disable dropdown to prevent changing back
+            addRemoveCompletedButton(newRow); // Add remove functionality for the completed row
         }
         updateTaskCounts();  // Update counts as status changes
         updateChart();  // Update the chart
@@ -71,6 +76,24 @@ const addTaskRow = () => {
 
     updateTaskCounts();  // Update counts for the chart
     updateChart();  // Update the chart
+};
+
+// Function to add remove functionality to completed tasks
+const addRemoveCompletedButton = (completedRow) => {
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'Remove';
+    removeButton.classList.add('remove-completed-task-button');
+
+    // Add event listener for removing from completed tasks
+    removeButton.addEventListener('click', () => {
+        const completedRows = document.getElementById("completed-rows");
+        completedRows.removeChild(completedRow);  // Remove the completed row
+        updateTaskCounts();  // Update the task counts for the chart
+        updateChart();  // Update the chart
+    });
+
+    // Append the remove button to the completed row
+    completedRow.appendChild(removeButton);
 };
 
 const updateTaskCounts = () => {

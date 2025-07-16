@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+}
+
+.dashboard {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.header, .task-row {
+    display: flex;
+    margin: 10px 0;
+}
+
+.column {
+    flex: 1;
+    font-weight: bold;
+}
+
+.task-input {
+    display: flex;
+    margin-top: 20px;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.chart-container {
+    width: 400px;
+    padding: 20px;
+}
+
+.task-row {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}

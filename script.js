@@ -1,4 +1,3 @@
-
 const assignedOptions = [
     "Amy Love", "Nicole Thomas", "Daniela Torres", "Wanda Heeley", 
     "All (A/N/D/W)", "Shareworks", "Legal", "Altshare", "Deloitte", "Payroll", "Other"
@@ -18,6 +17,7 @@ const taskCounts = {
     "Complete": 0
 };
 
+// Function to add a new task row
 const addTaskRow = () => {
     const taskInput = document.getElementById("task-input");
     const taskValue = taskInput.value.trim();
@@ -31,8 +31,9 @@ const addTaskRow = () => {
     const newRow = document.createElement("div");
     newRow.classList.add("task-row");
 
+    // Construct the HTML structure for the task row
     newRow.innerHTML = `
-        <input type="text" class="task-input" value="${taskValue}" readonly />
+        <input type="text" class="task-input" value="${taskValue}" />
         <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
@@ -43,7 +44,13 @@ const addTaskRow = () => {
     taskRows.appendChild(newRow);
     taskInput.value = "";  // Clear the input field after adding the task
 
-    // Add event listener for task removal
+    // Allow the task name to be editable
+    const taskNameInput = newRow.querySelector('.task-input');
+    taskNameInput.addEventListener('input', () => {
+        taskNameInput.value = taskNameInput.value;  // Keeps the edited value
+    });
+
+    // Add event listener for removing the task row
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
         taskRows.removeChild(newRow);
         updateTaskCounts();  // Update the task counts for the chart

@@ -59,22 +59,20 @@ const addTaskRow = () => {
             const completedRows = document.getElementById("completed-rows");
             completedRows.appendChild(newRow); // Move to completed section
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
-
+            
             // Create a single remove button for the completed task
-            const moveBackButton = document.createElement('button');
-            moveBackButton.innerText = 'Remove';
-            moveBackButton.classList.add('remove-completed-task-button');
+            const removeCompletedButton = document.createElement('button');
+            removeCompletedButton.innerText = 'Remove';
+            removeCompletedButton.classList.add('remove-completed-task-button');
 
-            // Event listener for moving back to active tasks section
-            moveBackButton.addEventListener('click', () => {
-                taskRows.appendChild(newRow); // Move back to the active tasks
-                statusSelect.disabled = false; // Enable dropdown again
-                moveBackButton.remove(); // Remove the Move Back button
+            // Add event listener for removing the completed task
+            removeCompletedButton.addEventListener('click', () => {
+                completedRows.removeChild(newRow); // Remove the completed row
                 updateTaskCounts(); // Update the task counts for the chart
                 updateChart(); // Update the chart
             });
 
-            newRow.appendChild(moveBackButton); // Append the button to the completed row
+            newRow.appendChild(removeCompletedButton); // Append the button to the completed row
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart

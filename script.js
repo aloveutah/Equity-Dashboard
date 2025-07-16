@@ -57,22 +57,29 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-            completedRows.appendChild(newRow); // Move to completed section
+
+            // Move to the completed section
+            completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
             
-            // Create a single remove button for the completed task
-            const removeCompletedButton = document.createElement('button');
-            removeCompletedButton.innerText = 'Remove';
-            removeCompletedButton.classList.add('remove-completed-task-button');
+            // Check if the button already exists to prevent duplicates
+            if (!newRow.querySelector('.remove-completed-task-button')) {
+                // Create and append the remove button for the completed task
+                const moveBackButton = document.createElement('button');
+                moveBackButton.innerText = 'Remove';
+                moveBackButton.classList.add('remove-completed-task-button');
 
-            // Add event listener for removing the completed task
-            removeCompletedButton.addEventListener('click', () => {
-                completedRows.removeChild(newRow); // Remove the completed row
-                updateTaskCounts(); // Update the task counts for the chart
-                updateChart(); // Update the chart
-            });
+                // Add event listener for moving back to the active tasks section
+                moveBackButton.addEventListener('click', () => {
+                    taskRows.appendChild(newRow); // Move back to active tasks section
+                    statusSelect.disabled = false; // Enable dropdown again
+                    moveBackButton.remove(); // Remove the Move Back button
+                    updateTaskCounts(); // Update the task counts for the chart
+                    updateChart(); // Update the chart
+                });
 
-            newRow.appendChild(removeCompletedButton); // Append the button to the completed row
+                newRow.appendChild(moveBackButton); // Append the button to the completed row
+            }
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart

@@ -78,20 +78,22 @@ const addTaskRow = () => {
 
 // Function to add remove functionality to completed tasks
 const addRemoveCompletedButton = (completedRow) => {
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'Remove';
-    removeButton.classList.add('remove-completed-task-button');
+    if (!completedRow.querySelector('.remove-completed-task-button')) {
+        const removeButton = document.createElement('button');
+        removeButton.innerText = 'Remove';
+        removeButton.classList.add('remove-completed-task-button');
 
-    // Add event listener for removing from completed tasks
-    removeButton.addEventListener('click', () => {
-        const completedRows = document.getElementById("completed-rows");
-        completedRows.removeChild(completedRow);  // Remove the completed row
-        updateTaskCounts();  // Update the task counts for the chart
-        updateChart();  // Update the chart
-    });
+        // Add event listener for removing from completed tasks
+        removeButton.addEventListener('click', () => {
+            const completedRows = document.getElementById("completed-rows");
+            completedRows.removeChild(completedRow);  // Remove the completed row
+            updateTaskCounts();  // Update the task counts for the chart
+            updateChart();  // Update the chart
+        });
 
-    // Append the remove button to the completed row
-    completedRow.appendChild(removeButton);
+        // Append the remove button to the completed row if it doesn't already exist
+        completedRow.appendChild(removeButton);
+    }
 };
 
 const updateTaskCounts = () => {

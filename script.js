@@ -24,24 +24,31 @@ const addTaskRow = () => {
 
     if (!taskValue) {
         alert("Please enter a task.");
-        return; // Do not add an empty task
+        return;  // Do not add an empty task
     }
 
     const taskRows = document.getElementById("task-rows");
     const newRow = document.createElement("div");
     newRow.classList.add("task-row");
 
+    // Construct the HTML structure for the task row
     newRow.innerHTML = `
         <input type="text" class="task-input" value="${taskValue}" readonly />
-        <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
-        <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
-        <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
+        <select class="assigned-select">$${assignedOptions.map(option => `<option value="$${option}">${option}</option>`).join('')}</select>
+        <select class="priority-select">$${priorityOptions.map(option => `<option value="$${option.value}" style="color: $${option.color};">$${option.value}</option>`).join('')}</select>
+        <select class="status-select">$${statusOptions.map(option => `<option value="$${option}">${option}</option>`).join('')}</select>
         <input type="text" class="notes-input" placeholder="Notes" />
         <button class="remove-task-button">Remove</button>
     `;
 
     taskRows.appendChild(newRow);
     taskInput.value = ""; // Clear the input field after adding the task
+
+    // Allow the task name to be editable if needed
+    const taskNameInput = newRow.querySelector('.task-input');
+    taskNameInput.addEventListener('input', () => {
+        taskNameInput.value = taskNameInput.value; // Keeps the edited value
+    });
 
     // Add event listener for removing the active task row
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
@@ -56,67 +63,28 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-            newRow.querySelector('.remove-task-button').innerText = 'Remove'; // Ensure the button text is set correctly
-
+            
             // Move to the completed section
             completedRows.appendChild(newRow);
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
+            
+            // Create and append the remove (move back) button for the completed task
+            const moveBackButton = document.createElement('button');
+            moveBackButton.innerText = 'Move Back';
+            moveBackButton.classList.add('move-back-button');
 
-            // Create and append the remove button for completed tasks, if not present
-            if (!newRow.querySelector('.remove-completed-task-button')) {
-                const removeCompletedButton = document.createElement('button');
-                removeCompletedButton.innerText = 'Remove';
-                removeCompletedButton.classList.add('remove-completed-task-button');
+            // Add event listener for moving back to active tasks section
+            moveBackButton.addEventListener('click', () => {
+                taskRows.appendChild(newRow); // Move back to the active tasks
+                statusSelect.disabled = false; // Enable dropdown again
+                updateTaskCounts(); // Update the task counts for the chart
+                updateChart(); // Update the chart
+            });
 
-                // Add event listener for removing the completed task
-                removeCompletedButton.addEventListener('click', () => {
-                    completedRows.removeChild(newRow); // Remove the completed row
-                    updateTaskCounts(); // Update task counts for the chart
-                    updateChart(); // Update the chart
-                });
-
-                newRow.appendChild(removeCompletedButton); // Append the button to the completed row
-            }
+            newRow.appendChild(moveBackButton); // Append the button to the completed row
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });
 
-    updateTaskCounts(); // Update counts for the chart
-    updateChart(); // Update the chart
-};
-
-const updateTaskCounts = () => {
-    Object.keys(taskCounts).forEach(key => taskCounts[key] = 0); // Reset counts
-    const rows = document.querySelectorAll('.task-row');
-    rows.forEach(row => {
-        const status = row.querySelector('.status-select').value;
-        taskCounts[status]++;
-    });
-};
-
-const ctx = document.getElementById('taskChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Not Started', 'In Progress', 'Complete'],
-        datasets: [{
-            label: 'Tasks',
-            data: [0, 0, 0], // Initial empty data
-            backgroundColor: ['green', 'yellow', 'red']
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-    }
-});
-
-const updateChart = () => {
-    const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
-    myChart.data.datasets[0].data = chartData; // Update chart data
-    myChart.update(); // Refresh the chart
-};
-
-// Add event listener to the "Add Task" button
-document.getElementById("add-task-button").addEventListener("click", addTaskRow);
+    update

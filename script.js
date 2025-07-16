@@ -1,4 +1,3 @@
-
 const assignedOptions = [
     "Amy Love", "Nicole Thomas", "Daniela Torres", "Wanda Heeley",
     "All (A/N/D/W)", "Shareworks", "Legal", "Altshare", "Deloitte", "Payroll", "Other"
@@ -51,7 +50,7 @@ const addTaskRow = () => {
         taskNameInput.value = taskNameInput.value; // Keeps the edited value
     });
 
-    // Add event listener for removing the task row
+    // Add event listener for removing the active task row
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
         taskRows.removeChild(newRow);
         updateTaskCounts(); // Update the task counts for the chart
@@ -64,26 +63,22 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
+            completedRows.appendChild(newRow);  // Move to completed section
+            statusSelect.disabled = true; // Disable dropdown to prevent changing back
+            
+            // Create and append the remove button for completed tasks
+            const removeCompletedButton = document.createElement('button');
+            removeCompletedButton.innerText = 'Remove';
+            removeCompletedButton.classList.add('remove-completed-task-button');
 
-            // Move to the completed section only if it's not already in it
-            if (!completedRows.contains(newRow)) {
-                completedRows.appendChild(newRow);  // Move to completed section
-                statusSelect.disabled = true; // Disable dropdown to prevent changing back
+            // Add event listener for removing from completed tasks
+            removeCompletedButton.addEventListener('click', () => {
+                completedRows.removeChild(newRow); // Remove the completed row
+                updateTaskCounts(); // Update the task counts for the chart
+                updateChart(); // Update the chart
+            });
 
-                // Create and append the remove button for completed tasks
-                const removeCompletedButton = document.createElement('button');
-                removeCompletedButton.innerText = 'Remove';
-                removeCompletedButton.classList.add('remove-completed-task-button');
-
-                // Add event listener for removing from completed tasks
-                removeCompletedButton.addEventListener('click', () => {
-                    completedRows.removeChild(newRow); // Remove the completed row
-                    updateTaskCounts(); // Update the task counts for the chart
-                    updateChart(); // Update the chart
-                });
-
-                completedRow.appendChild(removeCompletedButton);
-            }
+            newRow.appendChild(removeCompletedButton); // Append the button to completed row
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart

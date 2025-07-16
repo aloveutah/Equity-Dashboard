@@ -34,7 +34,7 @@ const addTaskRow = () => {
 
     // Construct the HTML structure for the task row
     newRow.innerHTML = `
-        <input type="text" class="task-input" value="${taskValue}" />
+        <input type="text" class="task-input" value="${taskValue}" readonly />
         <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
@@ -45,7 +45,7 @@ const addTaskRow = () => {
     taskRows.appendChild(newRow);
     taskInput.value = "";  // Clear the input field after adding the task
 
-    // Allow the task name to be editable
+    // Allow the task name to be editable if needed
     const taskNameInput = newRow.querySelector('.task-input');
     taskNameInput.addEventListener('input', () => {
         taskNameInput.value = taskNameInput.value;  // Keeps the edited value
@@ -64,8 +64,6 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-            // Move to the completed section
-            newRow.querySelector('.remove-task-button').innerText = 'Remove'; // Ensure the button text is set to Remove
             completedRows.appendChild(newRow);  // Move to completed section
             statusSelect.disabled = true;  // Disable dropdown to prevent changing back
             addRemoveCompletedButton(newRow); // Add remove functionality for the completed row

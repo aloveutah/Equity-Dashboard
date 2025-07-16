@@ -61,25 +61,28 @@ const addTaskRow = () => {
             // Move to the completed section
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
-            
-            // Check if the button already exists to prevent duplicates
-            if (!newRow.querySelector('.remove-completed-task-button')) {
-                // Create and append the remove button for the completed task
-                const moveBackButton = document.createElement('button');
-                moveBackButton.innerText = 'Remove';
-                moveBackButton.classList.add('remove-completed-task-button');
 
-                // Add event listener for moving back to the active tasks section
-                moveBackButton.addEventListener('click', () => {
-                    taskRows.appendChild(newRow); // Move back to active tasks section
-                    statusSelect.disabled = false; // Enable dropdown again
-                    moveBackButton.remove(); // Remove the Move Back button
-                    updateTaskCounts(); // Update the task counts for the chart
-                    updateChart(); // Update the chart
-                });
-
-                newRow.appendChild(moveBackButton); // Append the button to the completed row
+            // Remove any existing move-back button
+            let existingButton = newRow.querySelector('.move-back-button');
+            if (existingButton) {
+                newRow.removeChild(existingButton);
             }
+
+            // Create and append the remove (move back) button for the completed task
+            const moveBackButton = document.createElement('button');
+            moveBackButton.innerText = 'Remove';
+            moveBackButton.classList.add('remove-completed-task-button');
+
+            // Add event listener for moving back to active tasks section
+            moveBackButton.addEventListener('click', () => {
+                taskRows.appendChild(newRow); // Move back to active tasks
+                statusSelect.disabled = false; // Enable dropdown again
+                moveBackButton.remove(); // Remove the Move Back button
+                updateTaskCounts(); // Update the task counts for the chart
+                updateChart(); // Update the chart
+            });
+
+            newRow.appendChild(moveBackButton); // Append the button to the completed row
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
@@ -89,6 +92,7 @@ const addTaskRow = () => {
     updateChart(); // Update the chart
 };
 
+// Function to update task counts
 const updateTaskCounts = () => {
     Object.keys(taskCounts).forEach(key => taskCounts[key] = 0); // Reset counts
     const rows = document.querySelectorAll('.task-row');
@@ -98,6 +102,7 @@ const updateTaskCounts = () => {
     });
 };
 
+// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',
@@ -115,6 +120,7 @@ const myChart = new Chart(ctx, {
     }
 });
 
+// Update chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

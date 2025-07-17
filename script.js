@@ -33,7 +33,9 @@ const addTaskRow = () => {
     newRow.classList.add("task-row");
 
     // Construct the HTML structure for the task row
+    const taskNumber = taskRows.childElementCount + 1; // Generate task number based on current count
     newRow.innerHTML = `
+        <div class="task-number">${taskNumber}</div>
         <input type="text" class="task-input" value="${taskValue}" readonly />
         <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
@@ -56,13 +58,11 @@ const addTaskRow = () => {
     const statusSelect = newRow.querySelector('.status-select');
     statusSelect.addEventListener('change', () => {
         const status = statusSelect.value;
-
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
         }
-
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });
@@ -115,7 +115,7 @@ const myChart = new Chart(ctx, {
     }
 });
 
-// Update chart data
+// Update the chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

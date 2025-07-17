@@ -1,79 +1,78 @@
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard">
+            <div class="filter-section">
+                <label for="assigned-filter">Assigned To:</label>
+                <select id="assigned-filter">
+                    <option value="">All</option>
+                    <option value="Amy Love">Amy Love</option>
+                    <option value="Nicole Thomas">Nicole Thomas</option>
+                    <option value="Daniela Torres">Daniela Torres</option>
+                    <option value="Wanda Heeley">Wanda Heeley</option>
+                    <option value="All (A/N/D/W)">All (A/N/D/W)</option>
+                    <option value="Shareworks">Shareworks</option>
+                    <option value="Legal">Legal</option>
+                    <option value="Altshare">Altshare</option>
+                    <option value="Deloitte">Deloitte</option>
+                    <option value="Payroll">Payroll</option>
+                    <option value="Other">Other</option>
+                </select>
 
-.dashboard-container {
-    display: flex;
-}
+                <label for="priority-filter">Priority:</label>
+                <select id="priority-filter">
+                    <option value="">All</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
 
-.dashboard {
-    flex: 1;
-    margin-right: 20px;
-}
+                <label for="status-filter">Status:</label>
+                <select id="status-filter">
+                    <option value="">All</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Complete">Complete</option>
+                </select>
+                <button id="filter-button">Filter</button>
+            </div>
+            <div class="header">
+                <div class="column">#</div>
+                <div class="column">Tasks</div>
+                <div class="column">Assigned To</div>
+                <div class="column">Priority</div>
+                <div class="column">Status</div>
+                <div class="column">Notes</div>
+            </div>
+            <div class="task-rows" id="task-rows">
+                <!-- Task rows will be dynamically appended here -->
+            </div>
+            <div class="task-input">
+                <input type="text" id="task-input" placeholder="Enter Task" />
+                <button id="add-task-button">Add Task</button>
+            </div>
+        </div>
 
-.filter-section {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+        <div class="completed-tasks">
+            <h3>Completed Tasks</h3>
+            <div class="completed-rows" id="completed-rows">
+                <!-- Completed tasks will be moved here -->
+            </div>
+        </div>
 
-.filter-section label {
-    margin-right: 10px;
-}
-
-.header, .task-row {
-    display: flex;
-    margin: 10px 0;
-}
-
-.column {
-    flex: 1;
-    font-weight: bold;
-    padding: 5px;  /* Add some padding for better spacing */
-}
-
-.task-input {
-    display: flex;
-    margin-top: 20px;
-}
-
-.task-input input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 5px;
-}
-
-.task-row {
-    display: flex;
-    align-items: center; /* Center items vertically */
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-}
-
-.task-row input, .task-row select {
-    flex: 1; /* Ensure consistent width for input and select fields */
-    margin-right: 5px;  /* Add margin for spacing */
-}
-
-.completed-tasks {
-    margin-top: 20px;
-}
-
-.completed-rows {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
-.chart-container {
-    width: 400px;
-    padding: 20px;
-}
-
-/* Aligns columns in completed tasks section */
-.completed-rows .task-row {
-    display: flex;
-    align-items: center; /* Center items vertically in completed tasks */
-}
+        <div class="chart-container">
+            <canvas id="taskChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+</body>
+</html>

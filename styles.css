@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,15 +14,40 @@ body {
     margin-right: 20px;
 }
 
-.header, .task-row {
+.header {
     display: flex;
     margin: 10px 0;
 }
 
 .column {
-    flex: 1; 
     font-weight: bold;
     padding: 5px;  /* Add some padding for better spacing */
+}
+
+/* Set specific widths for each column */
+.header .column:nth-child(1) { 
+    flex: 3; /* Tasks column */
+}
+
+.header .column:nth-child(2) { 
+    flex: 1; /* Assigned To column */
+}
+
+.header .column:nth-child(3) { 
+    flex: 1; /* Priority column */
+}
+
+.header .column:nth-child(4) { 
+    flex: 1; /* Status column */
+}
+
+.header .column:nth-child(5) { 
+    flex: 2; /* Notes column */
+}
+
+.task-rows {
+    display: flex;
+    flex-direction: column;
 }
 
 .task-input {
@@ -45,10 +71,11 @@ body {
     padding: 10px 0;
 }
 
+/* Set a fixed size for the task text */
 .task-row .task-input {
-    width: 300px; /* Fixed width for the task input */
-    min-width: 100px; /* Ensure a reasonable minimum width */
-    word-wrap: break-word; /* Ensure long words wrap */
+    width: 250px; /* Fixed width for the task input */
+    min-width: 150px; /* Reasonable minimum width */
+    overflow-wrap: break-word; /* Ensure long words wrap */
 }
 
 .task-row select, .task-row .notes-input {

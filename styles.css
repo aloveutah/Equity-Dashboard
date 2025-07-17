@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,20 +14,26 @@ body {
     margin-right: 20px;
 }
 
-.header {
+.header, .task-row {
     display: flex;
     margin: 10px 0;
 }
 
 .column {
+    flex: 1;
     font-weight: bold;
     padding: 5px;  /* Add some padding for better spacing */
-    flex: 1; /* Columns will share space evenly */
 }
 
-.task-rows {
+.task-input {
     display: flex;
-    flex-direction: column;
+    margin-top: 20px;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 5px;
 }
 
 .task-row {
@@ -36,29 +43,9 @@ body {
     padding: 10px 0;
 }
 
-.task-row .task-text {
-    flex: 3; /* Wider space for the task text */
-    min-width: 200px; /* Minimum width for the task text */
-    word-wrap: break-word; /* Wrap long text onto new lines */
-    overflow-wrap: break-word; /* Allow text to wrap */
-}
-
-.task-row select, .task-row .notes-input {
-    flex: 1; /* Keep dropdowns and notes inputs flexible */
-    margin-right: 5px; /* Add margin for spacing */
-}
-
-.task-input {
-    display: flex;
-    margin-top: 20px;
-    width: 100%; /* Help the input section take full width */
-}
-
-#task-input {
-    flex: 1; /* This allows the textarea to take remaining space */
-    padding: 10px;
-    resize: none; /* Prevent resizing */
-    min-height: 60px; /* Set a minimum height for the textarea */
+.task-row input, .task-row select {
+    flex: 1; /* Ensure consistent width for input and select fields */
+    margin-right: 5px;  /* Add margin for spacing */
 }
 
 .completed-tasks {
@@ -75,7 +62,7 @@ body {
     padding: 20px;
 }
 
-/* Align columns in completed tasks section */
+/* Aligns columns in completed tasks section */
 .completed-rows .task-row {
     display: flex;
     align-items: center; /* Center items vertically in completed tasks */

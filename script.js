@@ -58,24 +58,28 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-            completedRows.appendChild(newRow); // Move task row to completed rows
-            statusSelect.disabled = true; // Disable dropdown to prevent changing back
             
-            // Create and append the remove button for the completed task
-            const moveBackButton = document.createElement('button');
-            moveBackButton.innerText = 'Remove';
-            moveBackButton.classList.add('remove-completed-task-button');
+            // Move task row to completed rows
+            completedRows.appendChild(newRow);
+            statusSelect.disabled = true; // Disable dropdown to prevent changing back
 
-            // Add event listener for moving back to the active tasks section
-            moveBackButton.addEventListener('click', () => {
-                taskRows.appendChild(newRow); // Move back to active tasks
-                statusSelect.disabled = false; // Enable dropdown again
-                moveBackButton.remove(); // Remove the Move Back button
-                updateTaskCounts(); // Update the task counts for the chart
-                updateChart(); // Update the chart
-            });
+            // Check if the removal button already exists
+            let existingButton = newRow.querySelector('.remove-completed-task-button');
+            if (!existingButton) {
+                // Create a single remove button for the completed task
+                const moveBackButton = document.createElement('button');
+                moveBackButton.innerText = 'Remove';
+                moveBackButton.classList.add('remove-completed-task-button');
 
-            newRow.appendChild(moveBackButton); // Append the button to the completed row
+                // Add event listener for removing the completed task
+                moveBackButton.addEventListener('click', () => {
+                    completedRows.removeChild(newRow); // Remove the completed row
+                    updateTaskCounts(); // Update task counts for the chart
+                    updateChart(); // Update the chart
+                });
+
+                newRow.appendChild(moveBackButton); // Append the removal button to the completed row
+            }
         }
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart

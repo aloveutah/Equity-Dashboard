@@ -1,4 +1,3 @@
-
 const assignedOptions = [
     "Amy Love", "Nicole Thomas", "Daniela Torres", "Wanda Heeley",
     "All (A/N/D/W)", "Shareworks", "Legal", "Altshare", "Deloitte", "Payroll", "Other"
@@ -18,7 +17,6 @@ const taskCounts = {
     "Complete": 0
 };
 
-// Function to add a new task row
 const addTaskRow = () => {
     const taskInput = document.getElementById("task-input");
     const taskValue = taskInput.value.trim();
@@ -39,26 +37,20 @@ const addTaskRow = () => {
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <input type="text" class="notes-input" placeholder="Notes" />
-        <button class="remove-task-button">Remove</button> 
+        <button class="remove-task-button">Remove</button>
     `;
 
     taskRows.appendChild(newRow);
     taskInput.value = ""; // Clear the input field after adding the task
 
-    // Add event listener for removing the task row
+    // Add event listener for removing the task
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
-        const statusSelect = newRow.querySelector('.status-select');
-        const completedRows = document.getElementById("completed-rows");
-
-        // Check if it's in completed rows or active rows to handle accordingly
-        if (completedRows.contains(newRow)) {
-            // If the task is in the completed section, move it back to active
-            taskRows.appendChild(newRow); // Move back to active tasks
-            statusSelect.value = "In Progress"; // Reset status to In Progress
-            statusSelect.disabled = false; // Enable dropdown again
+        if (document.getElementById("completed-rows").contains(newRow)) {
+            const activeRows = document.getElementById("task-rows");
+            activeRows.appendChild(newRow); // Move back to active tasks
+            newRow.querySelector('.status-select').value = "In Progress"; // Reset status to In Progress
         } else {
-            // Remove the task completely if it's in active tasks
-            taskRows.removeChild(newRow);
+            taskRows.removeChild(newRow); // Remove the task completely if it's in the active section
         }
 
         updateTaskCounts(); // Update the task counts for the chart
@@ -74,7 +66,7 @@ const addTaskRow = () => {
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
         }
-        
+
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });
@@ -83,7 +75,6 @@ const addTaskRow = () => {
     updateChart(); // Update the chart
 };
 
-// Function to update task counts
 const updateTaskCounts = () => {
     Object.keys(taskCounts).forEach(key => taskCounts[key] = 0); // Reset counts
     const rows = document.querySelectorAll('.task-row');
@@ -93,7 +84,6 @@ const updateTaskCounts = () => {
     });
 };
 
-// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',
@@ -111,7 +101,6 @@ const myChart = new Chart(ctx, {
     }
 });
 
-// Update chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

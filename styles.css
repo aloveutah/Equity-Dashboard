@@ -28,12 +28,13 @@ body {
 .task-input {
     display: flex;
     margin-top: 20px;
+    width: 100%; /* This helps the task input take full width */
 }
 
-.task-input input {
-    flex: 1;
+#task-input {
+    flex: 1; /* This allows the textarea to take remaining space */
     padding: 10px;
-    margin-right: 5px;
+    resize: none; /* Prevent resizing, if desired */
 }
 
 .task-row {
@@ -43,7 +44,7 @@ body {
     padding: 10px 0;
 }
 
-.task-row input, .task-row select {
+.task-row input, .task-row select, .task-row textarea {
     flex: 1; /* Ensure consistent width for input and select fields */
     margin-right: 5px;  /* Add margin for spacing */
 }

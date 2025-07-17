@@ -39,7 +39,7 @@ const addTaskRow = () => {
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <input type="text" class="notes-input" placeholder="Notes" />
-        <button class="remove-task-button">Remove</button> 
+        <button class="remove-task-button">Remove</button>
     `;
 
     taskRows.appendChild(newRow);
@@ -54,7 +54,7 @@ const addTaskRow = () => {
         if (completedRows.contains(newRow)) {
             // Move the task back to active tasks
             taskRows.appendChild(newRow); 
-            statusSelect.disabled = false; // Enable the status dropdown to allow selection again
+            statusSelect.disabled = false; // Enable the status dropdown again
         } else {
             // Remove the task completely if it's in active tasks
             taskRows.removeChild(newRow);
@@ -92,7 +92,7 @@ const updateTaskCounts = () => {
     });
 };
 
-// Set up the chart for displaying task counts
+// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',
@@ -110,7 +110,7 @@ const myChart = new Chart(ctx, {
     }
 });
 
-// Function to update chart data
+// Update chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

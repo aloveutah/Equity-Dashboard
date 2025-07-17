@@ -1,3 +1,4 @@
+
 const assignedOptions = [
     "Amy Love", "Nicole Thomas", "Daniela Torres", "Wanda Heeley",
     "All (A/N/D/W)", "Shareworks", "Legal", "Altshare", "Deloitte", "Payroll", "Other"
@@ -57,23 +58,15 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-
-            // Move to the completed section
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
-
-            // Remove any existing move-back button
-            let existingButton = newRow.querySelector('.move-back-button');
-            if (existingButton) {
-                newRow.removeChild(existingButton);
-            }
-
-            // Create and append the remove (move back) button for the completed task
+            
+            // Create and append the remove button for the completed task
             const moveBackButton = document.createElement('button');
             moveBackButton.innerText = 'Remove';
             moveBackButton.classList.add('remove-completed-task-button');
 
-            // Add event listener for moving back to active tasks section
+            // Add event listener for moving back to the active tasks section
             moveBackButton.addEventListener('click', () => {
                 taskRows.appendChild(newRow); // Move back to active tasks
                 statusSelect.disabled = false; // Enable dropdown again
@@ -92,7 +85,6 @@ const addTaskRow = () => {
     updateChart(); // Update the chart
 };
 
-// Function to update task counts
 const updateTaskCounts = () => {
     Object.keys(taskCounts).forEach(key => taskCounts[key] = 0); // Reset counts
     const rows = document.querySelectorAll('.task-row');
@@ -102,7 +94,6 @@ const updateTaskCounts = () => {
     });
 };
 
-// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',
@@ -120,7 +111,6 @@ const myChart = new Chart(ctx, {
     }
 });
 
-// Update chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

@@ -45,10 +45,23 @@ const addTaskRow = () => {
     taskRows.appendChild(newRow);
     taskInput.value = ""; // Clear the input field after adding the task
 
-    // Add event listener for removing the active task row
-    newRow.querySelector('.remove-task-button').addEventListener('click', () => {
-        taskRows.removeChild(newRow);
-        updateTaskCounts(); // Update the task counts for the chart
+    // Add event listener for removing the task row (removal button)
+    const removeButton = newRow.querySelector('.remove-task-button');
+
+    removeButton.addEventListener('click', () => {
+        const activeRows = document.getElementById("task-rows");
+        const completedRows = document.getElementById("completed-rows");
+        
+        // Check if this task is from the completed section
+        if (completedRows.contains(newRow)) {
+            // Move the task back to active tasks
+            activeRows.appendChild(newRow); 
+        } else {
+            // Remove the task from active tasks
+            activeRows.removeChild(newRow);
+        }
+
+        updateTaskCounts(); // Update counts for the chart
         updateChart(); // Update the chart
     });
 
@@ -58,17 +71,11 @@ const addTaskRow = () => {
         const status = statusSelect.value;
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
-
-            // Move to the completed section
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
-
-            // Remove any existing move back buttons
-            const existingButton = newRow.querySelector('.remove-completed-task-button');
-            if (existingButton) {
-                newRow.removeChild(existingButton); // Remove button just in case
-            }
-        }
+        } 
+        
+        // Update task counts for the chart when task status changes
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });

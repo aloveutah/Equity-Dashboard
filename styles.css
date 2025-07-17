@@ -22,46 +22,12 @@ body {
 .column {
     font-weight: bold;
     padding: 5px;  /* Add some padding for better spacing */
-}
-
-/* Set specific widths for each column */
-.header .column:nth-child(1) { 
-    flex: 3; /* Tasks column */
-}
-
-.header .column:nth-child(2) { 
-    flex: 1; /* Assigned To column */
-}
-
-.header .column:nth-child(3) { 
-    flex: 1; /* Priority column */
-}
-
-.header .column:nth-child(4) { 
-    flex: 1; /* Status column */
-}
-
-.header .column:nth-child(5) { 
-    flex: 2; /* Notes column */
+    flex: 1; /* Make all columns equal initially */
 }
 
 .task-rows {
     display: flex;
     flex-direction: column;
-}
-
-.task-input {
-    display: flex;
-    margin-top: 20px;
-    width: 100%; /* Allow the input section to take full width */
-}
-
-#task-input {
-    flex: 1; /* This allows the textarea to take remaining space */
-    padding: 10px;
-    resize: none; /* Prevent resizing */
-    min-height: 60px; /* Set a minimum height for the textarea */
-    max-height: 150px; /* Set a maximum height, if desired */
 }
 
 .task-row {
@@ -71,9 +37,8 @@ body {
     padding: 10px 0;
 }
 
-/* Set a fixed size for the task text */
 .task-row .task-input {
-    width: 250px; /* Fixed width for the task input */
+    width: 250px; /* Fixed width for the task text */
     min-width: 150px; /* Reasonable minimum width */
     overflow-wrap: break-word; /* Ensure long words wrap */
 }
@@ -81,6 +46,19 @@ body {
 .task-row select, .task-row .notes-input {
     flex: 1; /* Keep the selects and notes inputs flexible */
     margin-right: 5px; /* Add margin for spacing */
+}
+
+.task-input {
+    display: flex;
+    margin-top: 20px;
+    width: 100%; /* Help the input section take full width */
+}
+
+#task-input {
+    flex: 1; /* This allows the textarea to take remaining space */
+    padding: 10px;
+    resize: none; /* Prevent resizing */
+    min-height: 60px; /* Set a minimum height for the textarea */
 }
 
 .completed-tasks {
@@ -97,7 +75,7 @@ body {
     padding: 20px;
 }
 
-/* Aligns columns in completed tasks section */
+/* Align columns in completed tasks section */
 .completed-rows .task-row {
     display: flex;
     align-items: center; /* Center items vertically in completed tasks */

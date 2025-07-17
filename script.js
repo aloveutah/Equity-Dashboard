@@ -45,9 +45,21 @@ const addTaskRow = () => {
     taskRows.appendChild(newRow);
     taskInput.value = ""; // Clear the input field after adding the task
 
-    // Add event listener for removing the task row
+    // Add event listener for removing the task
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
-        taskRows.removeChild(newRow);
+        const statusSelect = newRow.querySelector('.status-select');
+        const completedRows = document.getElementById("completed-rows");
+
+        // Check if it's in completed rows or active rows to handle accordingly
+        if (completedRows.contains(newRow)) {
+            // Move the task back to active tasks
+            taskRows.appendChild(newRow); 
+            statusSelect.disabled = false; // Enable the status dropdown again
+        } else {
+            // Remove the task completely if it's in active tasks
+            taskRows.removeChild(newRow);
+        }
+
         updateTaskCounts(); // Update the task counts for the chart
         updateChart(); // Update the chart
     });
@@ -80,6 +92,7 @@ const updateTaskCounts = () => {
     });
 };
 
+// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',

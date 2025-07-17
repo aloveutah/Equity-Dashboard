@@ -20,7 +20,7 @@ body {
 }
 
 .column {
-    flex: 1;
+    flex: 1; 
     font-weight: bold;
     padding: 5px;  /* Add some padding for better spacing */
 }
@@ -28,7 +28,6 @@ body {
 .task-input {
     display: flex;
     margin-top: 20px;
-    width: 100%; /* Help the input section take full width */
 }
 
 #task-input {
@@ -36,7 +35,7 @@ body {
     padding: 10px;
     resize: none; /* Prevent resizing */
     min-height: 60px; /* Set a minimum height for the textarea */
-    max-height: 150px; /* Set a maximum height, if desired */
+    max-height: 150px; /* Set a maximum height if desired */
 }
 
 .task-row {
@@ -46,13 +45,13 @@ body {
     padding: 10px 0;
 }
 
-.task-row .task-text {
-    flex: 1; /* Allow task text to take remaining space */
-    word-wrap: break-word; /* Enable word wrapping */
+.task-row .task-input {
+    flex: 2; /* Make the task input wider */
+    min-width: 300px; /* Set a minimum width for visibility */
 }
 
-.task-row input, .task-row select {
-    flex: 1; /* Ensure consistent width for input and select fields */
+.task-row select, .task-row .notes-input {
+    flex: 1; /* Ensure consistent width for inputs and select fields */
     margin-right: 5px;  /* Add margin for spacing */
 }
 
@@ -70,7 +69,7 @@ body {
     padding: 20px;
 }
 
-/* Aligns columns in completed tasks */
+/* Aligns columns in completed tasks section */
 .completed-rows .task-row {
     display: flex;
     align-items: center; /* Center items vertically in completed tasks */

@@ -45,23 +45,10 @@ const addTaskRow = () => {
     taskRows.appendChild(newRow);
     taskInput.value = ""; // Clear the input field after adding the task
 
-    // Add event listener for removing the task row (removal button)
-    const removeButton = newRow.querySelector('.remove-task-button');
-
-    removeButton.addEventListener('click', () => {
-        const activeRows = document.getElementById("task-rows");
-        const completedRows = document.getElementById("completed-rows");
-        
-        // Check if this task is from the completed section
-        if (completedRows.contains(newRow)) {
-            // Move the task back to active tasks
-            activeRows.appendChild(newRow); 
-        } else {
-            // Remove the task from active tasks
-            activeRows.removeChild(newRow);
-        }
-
-        updateTaskCounts(); // Update counts for the chart
+    // Add event listener for removing the active task row
+    newRow.querySelector('.remove-task-button').addEventListener('click', () => {
+        taskRows.removeChild(newRow);
+        updateTaskCounts(); // Update the task counts for the chart
         updateChart(); // Update the chart
     });
 
@@ -69,13 +56,13 @@ const addTaskRow = () => {
     const statusSelect = newRow.querySelector('.status-select');
     statusSelect.addEventListener('change', () => {
         const status = statusSelect.value;
+
         if (status === "Complete") {
             const completedRows = document.getElementById("completed-rows");
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
-        } 
-        
-        // Update task counts for the chart when task status changes
+        }
+
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });
@@ -84,13 +71,29 @@ const addTaskRow = () => {
     updateChart(); // Update the chart
 };
 
-// Function to update task counts
-const updateTaskCounts = () => {
-    Object.keys(taskCounts).forEach(key => taskCounts[key] = 0); // Reset counts
-    const rows = document.querySelectorAll('.task-row');
+// Function to filter tasks based on assigned, priority, and status
+const filterTasks = () => {
+    const assignedFilter = document.getElementById('assigned-filter').value;
+    const priorityFilter = document.getElementById('priority-filter').value;
+    const statusFilter = document.getElementById('status-filter').value;
+
+    const taskRows = document.getElementById("task-rows");
+    const rows = taskRows.querySelectorAll('.task-row');
+
     rows.forEach(row => {
-        const status = row.querySelector('.status-select').value;
-        taskCounts[status]++;
+        const assignedValue = row.querySelector('.assigned-select').value;
+        const priorityValue = row.querySelector('.priority-select').value;
+        const statusValue = row.querySelector('.status-select').value;
+
+        const assignedMatch = assignedFilter === "" || assignedFilter === assignedValue;
+        const priorityMatch = priorityFilter === "" || priorityFilter === priorityValue;
+        const statusMatch = statusFilter === "" || statusFilter === statusValue;
+
+        if (assignedMatch && priorityMatch && statusMatch) {
+            row.style.display = ""; // Show row
+        } else {
+            row.style.display = "none"; // Hide row
+        }
     });
 };
 
@@ -121,3 +124,6 @@ const updateChart = () => {
 
 // Add event listener to the "Add Task" button
 document.getElementById("add-task-button").addEventListener("click", addTaskRow);
+
+// Add event listener to the "Filter" button
+document.getElementById("filter-button").addEventListener("click", filterTasks);

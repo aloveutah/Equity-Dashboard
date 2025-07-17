@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,40 @@
 <body>
     <div class="dashboard-container">
         <div class="dashboard">
+            <div class="filter-section">
+                <label for="assigned-filter">Assigned To:</label>
+                <select id="assigned-filter">
+                    <option value="">All</option>
+                    <option value="Amy Love">Amy Love</option>
+                    <option value="Nicole Thomas">Nicole Thomas</option>
+                    <option value="Daniela Torres">Daniela Torres</option>
+                    <option value="Wanda Heeley">Wanda Heeley</option>
+                    <option value="All (A/N/D/W)">All (A/N/D/W)</option>
+                    <option value="Shareworks">Shareworks</option>
+                    <option value="Legal">Legal</option>
+                    <option value="Altshare">Altshare</option>
+                    <option value="Deloitte">Deloitte</option>
+                    <option value="Payroll">Payroll</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="priority-filter">Priority:</label>
+                <select id="priority-filter">
+                    <option value="">All</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+
+                <label for="status-filter">Status:</label>
+                <select id="status-filter">
+                    <option value="">All</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Complete">Complete</option>
+                </select>
+                <button id="filter-button">Filter</button>
+            </div>
             <div class="header">
                 <div class="column">Tasks</div>
                 <div class="column">Assigned To</div>

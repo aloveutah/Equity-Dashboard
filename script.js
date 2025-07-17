@@ -34,7 +34,7 @@ const addTaskRow = () => {
 
     // Construct the HTML structure for the task row
     newRow.innerHTML = `
-        <input type="text" class="task-input" value="${taskValue}" readonly />
+        <div class="task-text">${taskValue}</div>
         <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
@@ -47,19 +47,7 @@ const addTaskRow = () => {
 
     // Add event listener for removing the task row
     newRow.querySelector('.remove-task-button').addEventListener('click', () => {
-        const statusSelect = newRow.querySelector('.status-select');
-        const completedRows = document.getElementById("completed-rows");
-
-        // Check if it's in completed rows or active rows to handle accordingly
-        if (completedRows.contains(newRow)) {
-            // Move the task back to active tasks
-            taskRows.appendChild(newRow); 
-            statusSelect.disabled = false; // Enable the status dropdown again
-        } else {
-            // Remove the task completely if it's in active tasks
-            taskRows.removeChild(newRow);
-        }
-
+        taskRows.removeChild(newRow);
         updateTaskCounts(); // Update the task counts for the chart
         updateChart(); // Update the chart
     });
@@ -73,7 +61,7 @@ const addTaskRow = () => {
             completedRows.appendChild(newRow); // Move task row to completed rows
             statusSelect.disabled = true; // Disable dropdown to prevent changing back
         }
-        
+
         updateTaskCounts(); // Update counts as status changes
         updateChart(); // Update the chart
     });
@@ -92,7 +80,6 @@ const updateTaskCounts = () => {
     });
 };
 
-// Set up the chart
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',

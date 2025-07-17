@@ -28,13 +28,15 @@ body {
 .task-input {
     display: flex;
     margin-top: 20px;
-    width: 100%; /* This helps the task input take full width */
+    width: 100%; /* Help the input section take full width */
 }
 
 #task-input {
     flex: 1; /* This allows the textarea to take remaining space */
     padding: 10px;
-    resize: none; /* Prevent resizing, if desired */
+    resize: none; /* Prevent resizing */
+    min-height: 60px; /* Set a minimum height for the textarea */
+    max-height: 150px; /* Set a maximum height, if desired */
 }
 
 .task-row {
@@ -44,7 +46,12 @@ body {
     padding: 10px 0;
 }
 
-.task-row input, .task-row select, .task-row textarea {
+.task-row .task-text {
+    flex: 1; /* Allow task text to take remaining space */
+    word-wrap: break-word; /* Enable word wrapping */
+}
+
+.task-row input, .task-row select {
     flex: 1; /* Ensure consistent width for input and select fields */
     margin-right: 5px;  /* Add margin for spacing */
 }
@@ -63,7 +70,7 @@ body {
     padding: 20px;
 }
 
-/* Aligns columns in completed tasks section */
+/* Aligns columns in completed tasks */
 .completed-rows .task-row {
     display: flex;
     align-items: center; /* Center items vertically in completed tasks */

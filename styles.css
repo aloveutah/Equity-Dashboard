@@ -1,84 +1,69 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
 
-.dashboard-container {
-    display: flex;
-}
-
-.dashboard {
-    flex: 1;
-    margin-right: 20px;
-}
-
-.header, .task-row {
-    display: flex;
-    margin: 10px 0;
-}
-
-.column {
-    flex: 1;
-    font-weight: bold;
-    padding: 5px;  /* Add some padding for better spacing */
-}
-
-.task-input {
-    display: flex;
-    margin-top: 20px;
-}
-
-.task-input input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 5px;
-}
-
-.task-row {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-}
-
-.task-text {
-    flex: 1; /* Keep the task text width unchanged */
-    min-width: 0; /* Ensure it can shrink as needed */
-    padding: 10px; /* Optional: padding for better spacing */
-    border: 1px solid #ccc; /* Border for visibility */
-    border-radius: 4px;
-    overflow-wrap: break-word; /* Allow wrapping */
-    white-space: normal; /* Allow normal white space handling */
-    height: auto; /* Allow height to adjust based on content */
-}
-
-.task-row input,
-.task-row select {
-    min-width: 0; /* Important for proper wrapping */
-    margin-right: 5px;  /* Add margin for spacing */
-}
-
-.completed-tasks {
-    margin-top: 20px;
-}
-
-.completed-rows {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
-.chart-container {
-    width: 400px;
-    padding: 20px;
-}
-
-/* Aligns columns in completed tasks section */
-.completed-rows .task-row {
-    display: flex;
-    align-items: center; /* Center items vertically in completed tasks */
-}
-
-/* Optional styling for readonly input */
-.task-row input[readonly] {
-    background-color: #f9f9f9; /* Light background for readonly input */
-}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+}
+
+.dashboard {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.header, .task-row {
+    display: flex;
+    margin: 10px 0;
+}
+
+.column {
+    flex: 1;
+    font-weight: bold;
+    padding: 5px;  /* Add some padding for better spacing */
+}
+
+.task-input {
+    display: flex;
+    margin-top: 20px;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.task-row {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.task-row input, .task-row select {
+    flex: 1; /* Ensure consistent width for input and select fields */
+    margin-right: 5px;  /* Add margin for spacing */
+}
+
+.completed-tasks {
+    margin-top: 20px;
+}
+
+.completed-rows {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.chart-container {
+    width: 400px;
+    padding: 20px;
+}
+
+/* Aligns columns in completed tasks section */
+.completed-rows .task-row {
+    display: flex;
+    align-items: center; /* Center items vertically in completed tasks */
+}

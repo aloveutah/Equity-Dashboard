@@ -1,69 +1,69 @@
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-}
-
-.dashboard-container {
-    display: flex;
-}
-
-.dashboard {
-    flex: 1;
-    margin-right: 20px;
-}
-
-.header, .task-row {
-    display: flex;
-    margin: 10px 0;
-}
-
-.column {
-    flex: 1;
-    font-weight: bold;
-    padding: 5px;  /* Add some padding for better spacing */
-}
-
-.task-input {
-    display: flex;
-    margin-top: 20px;
-}
-
-.task-input input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 5px;
-}
-
-.task-row {
-    display: flex;
-    align-items: center; /* Center items vertically */
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-}
-
-.task-row input, .task-row select {
-    flex: 1; /* Ensure consistent width for input and select fields */
-    margin-right: 5px;  /* Add margin for spacing */
-}
-
-.completed-tasks {
-    margin-top: 20px;
-}
-
-.completed-rows {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
-.chart-container {
-    width: 400px;
-    padding: 20px;
-}
-
-/* Aligns columns in completed tasks section */
-.completed-rows .task-row {
-    display: flex;
-    align-items: center; /* Center items vertically in completed tasks */
-}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+}
+
+.dashboard {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.header, .task-row {
+    display: flex;
+    margin: 10px 0;
+}
+
+.column {
+    flex: 1;
+    font-weight: bold;
+    padding: 5px;  /* Add some padding for better spacing */
+}
+
+.task-input {
+    display: flex;
+    margin-top: 20px;
+}
+
+.task-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.task-row {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.task-row input, .task-row select {
+    flex: 1; /* Ensure consistent width for input and select fields */
+    margin-right: 5px;  /* Add margin for spacing */
+}
+
+.completed-tasks {
+    margin-top: 20px;
+}
+
+.completed-rows {
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.chart-container {
+    width: 400px;
+    padding: 20px;
+}
+
+/* Aligns columns in completed tasks section */
+.completed-rows .task-row {
+    display: flex;
+    align-items: center; /* Center items vertically in completed tasks */
+}

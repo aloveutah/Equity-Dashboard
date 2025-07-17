@@ -34,7 +34,7 @@ const addTaskRow = () => {
 
     // Construct the HTML structure for the task row
     newRow.innerHTML = `
-        <div class="task-text">${taskValue}</div>
+        <div class="task-text">${taskValue}</div>  <!-- Use div for task text -->
         <select class="assigned-select">${assignedOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
         <select class="priority-select">${priorityOptions.map(option => `<option value="${option.value}" style="color: ${option.color};">${option.value}</option>`).join('')}</select>
         <select class="status-select">${statusOptions.map(option => `<option value="${option}">${option}</option>`).join('')}</select>
@@ -92,7 +92,7 @@ const updateTaskCounts = () => {
     });
 };
 
-// Set up the chart
+// Set up the chart for displaying task counts
 const ctx = document.getElementById('taskChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'pie',
@@ -110,7 +110,7 @@ const myChart = new Chart(ctx, {
     }
 });
 
-// Update chart data
+// Function to update chart data
 const updateChart = () => {
     const chartData = [taskCounts["Not Started"], taskCounts["In Progress"], taskCounts["Complete"]];
     myChart.data.datasets[0].data = chartData; // Update chart data

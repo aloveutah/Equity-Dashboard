@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -38,20 +37,22 @@ body {
 
 .task-row {
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: flex-start; /* Align items at the start vertically */
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
     flex-wrap: wrap; /* Allow the task row to wrap its content */
 }
 
 .task-row input.task-input {
-    flex: 1; /* Keep full width of the column */
+    flex: 1; /* Maintain column width */
     padding: 10px; /* Add some padding */
     border: 1px solid #ccc; 
     border-radius: 4px;
     min-width: 0; /* Allows the input to shrink and wrap */
     overflow-wrap: break-word; /* Allows for wrapping within the input */
-    white-space: normal; /* Allows the text to wrap to the next line */
+    white-space: pre-wrap; /* Allows the text to wrap and respect white spaces */
+    height: auto; /* Let height adjust based on content */
+    max-height: 60px; /* Optional: Set a maximum height */
 }
 
 .task-row input,
@@ -78,12 +79,6 @@ body {
 .completed-rows .task-row {
     display: flex;
     align-items: center; /* Center items vertically in completed tasks */
-}
-
-/* Optional: Adjust height for comfortable input reading */
-.task-row input {
-    height: auto; /* Set to auto to let it grow as needed */
-    min-height: 40px; /* Ensure some minimum height for better usability */
 }
 
 /* Optional styling for readonly input */
